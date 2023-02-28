@@ -1,5 +1,5 @@
 
-html {
+html, body {
     font-family: 'Rubik', sans-serif;
 }
 
@@ -9,7 +9,8 @@ html {
 }
 
 .card {
-    margin-top: 50px;
+    margin-top: 30px;
+    border: none;
 }
 
 @media only screen and (max-width: 600px) {
