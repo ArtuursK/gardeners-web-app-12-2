@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -29,6 +30,18 @@ public class MainController {
                         "where post.gardener_id = gardener.gardener_id;",
                 new PostMapper());
         return ResponseEntity.ok().body(postList);
+    }
+
+    @RequestMapping(value = "/allposts")
+    public String getAllPostsTh(Model model) {
+        //return all posts from DB
+        List<Post> postList = jdbcTemplate.query(
+                "select post.post_id, post.description, post.datetime, gardener.username " +
+                        "from post, gardener " +
+                        "where post.gardener_id = gardener.gardener_id;",
+                new PostMapper());
+        model.addAttribute("posts", postList);
+        return "index.html";
     }
 
 }
