@@ -1,5 +1,6 @@
 package com.gardeners.web.app;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,6 +43,18 @@ public class MainController {
                 new PostMapper());
         model.addAttribute("posts", postList);
         return "index.html";
+    }
+
+    @RequestMapping(value = "/gardener/create")
+    public String createGardener(Model model) {
+        Gardener gardener = new Gardener();
+        gardener.setUsername();
+        gardener.setPassword(hashPassword(""));
+        return "";
+    }
+
+    public String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
 }
